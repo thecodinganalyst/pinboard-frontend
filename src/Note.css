@@ -1,0 +1,53 @@
+
+.Note{
+	border: 1px solid #dedede;
+	margin-bottom: 0.3em;
+	padding: 3px;
+	position: relative;
+}
+
+.Note:hover{
+	border: 2px solid #3483eb;
+	cursor: pointer;
+	font-size: x-large;
+}
+
+.Note:hover .Likes{
+	font-size: large;
+}
+
+.Note.Answered{
+	color: #999999;
+}
+
+.Note .Nid::before{
+	content: "#";
+}
+
+.Note .Nid{
+	color: #666666;
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.Note .Item{
+	display: inline-block;
+
+}
+
+.Note .Likes::before{
+	content: "+";
+}
+
+.Note .Likes{
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 500px){
+
+}
