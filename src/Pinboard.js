@@ -56,7 +56,7 @@ class Pinboard extends React.Component{
     event.preventDefault();
     if(this.state.note.length <= 3) return;
     let id = uuidv4();
-    let note = {id: id, item: this.state.note, likes: 0, answered: false};
+    let note = {id: id, note: this.state.note, likes: 0, answered: false};
     this.setState((state, props) => ({
       notelist: state.notelist.concat(note),
       note: ""
