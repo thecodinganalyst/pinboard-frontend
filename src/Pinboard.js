@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Note from './Note.js'
 import './Pinboard.css';
 
+
 class Pinboard extends React.Component{
   constructor(props){
     super(props);
@@ -14,6 +15,7 @@ class Pinboard extends React.Component{
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getAllNotes = this.getAllNotes.bind(this);
+
   }
 
   componentDidMount(){
@@ -26,10 +28,18 @@ class Pinboard extends React.Component{
       redirect: 'follow'
     };
 
-    fetch("https://66nh0viwq6.execute-api.ap-southeast-1.amazonaws.com/Prod", requestOptions)
+    fetch(process.env.REACT_APP_PINBOARD_API, requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));  
+      .then(result => {
+        console.log(result);
+        var json = JSON.parse(result);
+        if(Array.isArray(json)){
+          this.setState({notelist: json});
+        }
+      })
+      .catch(error => {
+        console.log('error', error)
+      });  
   }
 
   handleChange(event){
@@ -61,12 +71,12 @@ class Pinboard extends React.Component{
           <input type="text" name="note" value={this.state.note} onChange={this.handleChange} />
         </form>
         <div className="NoteList">
-          {this.state.notelist.map((note) => 
-            <Note key={note.id} 
-              id={note.id} 
-              item={note.item} 
-              like={note.likes} 
-              answered={note.answered} 
+          {this.state.notelist.map((item) => 
+            <Note key={item.id} 
+              id={item.id} 
+              item={item.note} 
+              like={item.likes} 
+              answered={item.answered} 
             />
           )}
         </div>
